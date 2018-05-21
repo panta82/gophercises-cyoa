@@ -6,8 +6,83 @@
 			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>{{.Title}}</title>
+	<style type="text/css">
+		body, html {
+			padding: 0;
+			margin: 0;
+			font-family: Arial, Verdana, sans-serif;
+		}
+		header {
+			background: #4c8acb;
+			color: white;
+			padding: 50px;
+			text-align: center;
+		}
+		header a {
+			font-size: 18px;
+			color: #e3f6ff;
+			display: block;
+			margin-bottom: 20px;
+		}
+		header h1 {
+			font-size: 34px;
+			color: white;
+		}
+
+		article {
+			margin: 20px auto;
+			padding: 20px;
+			position: relative;
+			max-width: 768px;
+			font-size: 18px;
+		}
+
+		footer {
+			background: #eaf3cd;
+			margin: 20px auto;
+			padding: 20px;
+			position: relative;
+			max-width: 768px;
+			font-size: 22px;
+		}
+		footer h3 {
+			color: #4c8acb;
+			text-align: center;
+		}
+		footer li {
+			margin: 10px;
+		}
+		footer li a {
+			color: black;
+			text-decoration: none;
+		}
+		footer li a:hover {
+			text-decoration: underline;
+		}
+	</style>
 </head>
 <body>
-	<h1>{{.Title}}</h1>
+	<header>
+		<a href="/">Home</a>
+		<h1>{{.Title}}</h1>
+	</header>
+
+	<article>
+		{{range .Paragraphs}}
+			<p>{{.}}</p>
+		{{end}}
+	</article>
+
+	<footer>
+		{{if not .Options }}
+			<h3>The end</h3>
+		{{else}}
+			<ul>
+			{{range .Options}}
+				<li><a href="/{{.Arc}}">{{.Text}}</a></li>
+			{{end}}
+			</ul>
+		{{end}}
+	</footer>
 </body>
 </html>
