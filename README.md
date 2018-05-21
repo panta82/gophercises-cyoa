@@ -1,1 +1,5 @@
-# Gophercises: Chose Your Own Adventure
+# Gophercises
+
+## Chose Your Own Adventure
+
+https://gophercises.com/exercises/cyoa
