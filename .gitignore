@@ -50,3 +50,10 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+########################################################################################################################
+
+/bin
+/lib
+/src/*
+!/src/cyoa
