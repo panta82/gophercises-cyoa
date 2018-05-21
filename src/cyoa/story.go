@@ -1,14 +1,12 @@
 package cyoa
 
 import (
-	"os"
-	"path/filepath"
 	"io/ioutil"
 	"encoding/json"
 )
 
 const storyFileName = "gopher.json"
-const startingArc = "intro"
+const defaultStartingArc = "intro"
 
 type StoryOption struct {
 	Text string
@@ -23,29 +21,21 @@ type StoryArc struct {
 }
 
 type Story struct {
-	CurrentArc string
+	StartingArc string
 	Arcs map[string]StoryArc
 }
 
-func getStoryFileName() string {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	if err != nil {
-		panic("Failed to determine directory of the executable")
-	}
-
-	return filepath.Join(dir, storyFileName)
-}
-
 func LoadStory() Story {
-	raw, err := ioutil.ReadFile(getStoryFileName())
+	fileName := getAssetPath(storyFileName)
+	raw, err := ioutil.ReadFile(fileName)
 	if err != nil {
-		panic("Failed to load story from " + getStoryFileName() + ": " + err.Error())
+		panic("Failed to load story from " + fileName + ": " + err.Error())
 	}
 
 	var dict map[string]StoryArc
 	err = json.Unmarshal(raw, &dict)
 	if err != nil {
-		panic("Failed to parse story file " + getStoryFileName() + ": " + err.Error())
+		panic("Failed to parse story file " + fileName + ": " + err.Error())
 	}
 
 	var story Story
@@ -54,7 +44,7 @@ func LoadStory() Story {
 		arc.Name = name
 		story.Arcs[name] = arc
 	}
-	story.CurrentArc = startingArc
+	story.StartingArc = defaultStartingArc
 
 	return story
 }
